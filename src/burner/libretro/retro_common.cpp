@@ -210,7 +210,7 @@ static const struct retro_core_option_definition var_fbneo_cyclone = {
 		{ "enabled", NULL },
 		{ NULL, NULL },
 	},
-	"disabled"
+	"enabled"
 };
 #endif
 
@@ -989,7 +989,7 @@ void check_variables(void)
 		if (strcmp(var.value, "enabled") == 0)
 			bCycloneEnabled = true;
 		else if (strcmp(var.value, "disabled") == 0)
-			bCycloneEnabled = false;
+			bCycloneEnabled = true;
 	}
 #endif
 
