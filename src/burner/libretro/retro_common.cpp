@@ -66,7 +66,7 @@ neo_geo_modes g_opt_neo_geo_mode = NEO_GEO_MODE_MVS;
 // 0 - c68k, 1 - m68k
 // we don't use cyclone by default because it breaks savestates cross-platform compatibility (including netplay)
 int nSekCpuCore = 1;
-static bool bCycloneEnabled = false;
+static bool bCycloneEnabled = true;
 #endif
 
 static UINT8 diag_input_start[] =       {RETRO_DEVICE_ID_JOYPAD_START,  RETRO_DEVICE_ID_JOYPAD_EMPTY };
