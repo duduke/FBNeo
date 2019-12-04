@@ -62,12 +62,12 @@ INT32 g_audio_samplerate = 48000;
 UINT8 *diag_input;
 neo_geo_modes g_opt_neo_geo_mode = NEO_GEO_MODE_MVS;
 
-#ifdef USE_CYCLONE
+ifdef USE_CYCLONE
 // 0 - c68k, 1 - m68k
 // we don't use cyclone by default because it breaks savestates cross-platform compatibility (including netplay)
-int nSekCpuCore = 0;
+int nSekCpuCore = 1;
 static bool bCycloneEnabled = true;
-#endif
+endif
 
 static UINT8 diag_input_start[] =       {RETRO_DEVICE_ID_JOYPAD_START,  RETRO_DEVICE_ID_JOYPAD_EMPTY };
 static UINT8 diag_input_start_a_b[] =   {RETRO_DEVICE_ID_JOYPAD_START,  RETRO_DEVICE_ID_JOYPAD_A, RETRO_DEVICE_ID_JOYPAD_B, RETRO_DEVICE_ID_JOYPAD_EMPTY };
@@ -200,7 +200,7 @@ static const struct retro_core_option_definition var_fbneo_analog_speed = {
 	},
 	"100%"
 };
-#ifdef USE_CYCLONE
+ifdef USE_CYCLONE
 static const struct retro_core_option_definition var_fbneo_cyclone = {
 	"fbneo-cyclone",
 	"Enable cyclone",
@@ -210,9 +210,9 @@ static const struct retro_core_option_definition var_fbneo_cyclone = {
 		{ "enabled", NULL },
 		{ NULL, NULL },
 	},
-	"enabled"
+	"disabled"
 };
-#endif
+endif
 
 // Neo Geo core options
 static const struct retro_core_option_definition var_fbneo_neogeo_mode = {
@@ -519,9 +519,9 @@ void set_environment()
 	vars_systems.push_back(&var_fbneo_sample_interpolation);
 	vars_systems.push_back(&var_fbneo_fm_interpolation);
 	vars_systems.push_back(&var_fbneo_analog_speed);
-#ifdef USE_CYCLONE
+ifdef USE_CYCLONE
 	vars_systems.push_back(&var_fbneo_cyclone);
-#endif
+endif
 #ifdef FBNEO_DEBUG
 	vars_systems.push_back(&var_fbneo_debug_layer_1);
 	vars_systems.push_back(&var_fbneo_debug_layer_2);
@@ -982,16 +982,16 @@ void check_variables(void)
 		nAnalogSpeed = percent_parser(var.value);
 	}
 
-#ifdef USE_CYCLONE
+ifdef USE_CYCLONE
 	var.key = var_fbneo_cyclone.key;
 	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var))
 	{
 		if (strcmp(var.value, "enabled") == 0)
 			bCycloneEnabled = true;
 		else if (strcmp(var.value, "disabled") == 0)
-			bCycloneEnabled = true;
+			bCycloneEnabled = false;
 	}
-#endif
+endif
 
 #ifdef FBNEO_DEBUG
 	var.key = var_fbneo_debug_layer_1.key;
@@ -1104,9 +1104,9 @@ void check_variables(void)
 #endif
 }
 
-#ifdef USE_CYCLONE
+ifdef USE_CYCLONE
 void SetSekCpuCore()
 {
 	nSekCpuCore = (bCycloneEnabled ? 0 : 1);
 }
-#endif
+endif
